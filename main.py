@@ -19,6 +19,7 @@ pygame.display.set_caption('18bit')
 
 done = False
 clock = pygame.time.Clock()
+FONT_NAME = 'arial'
 
 myimg = pygame.image.load('img/backgroud.png')
 def startGame():
@@ -52,9 +53,9 @@ def startGame():
 				break
 			elif event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_LEFT:
-					person_dx = -5
+					person_dx = -15
 				elif event.key == pygame.K_RIGHT:
-					person_dx = 5
+					person_dx = 15
 			elif event.type == pygame.KEYUP:
 				if event.key == pygame.K_LEFT:
 					person_dx = 0
@@ -86,6 +87,7 @@ def startGame():
 			screen.blit(ball_image, bomb['rect'])
 
 		pygame.display.update()
+
 
 
 #게임 시작
