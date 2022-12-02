@@ -22,6 +22,7 @@ clock = pygame.time.Clock()
 FONT_NAME = 'arial'
 
 myimg = pygame.image.load('img/backgroud.png')
+start = pygame.image.load('img/start_img.jpg')
 def startGame():
 	ball_image = pygame.image.load('img/ball.png')
 	ball_image = pygame.transform.scale(ball_image, (70, 70))
@@ -41,6 +42,9 @@ def startGame():
 	person.top = size[1] - person.height
 	person_dx = 0
 	person_dy = 0
+
+	# time = 50000
+	# start_ticks = pygame.time.get_ticks()
 
 	global done
 	while not done:
@@ -86,8 +90,78 @@ def startGame():
 				done = True
 			screen.blit(ball_image, bomb['rect'])
 
+		# #제한 시간
+		# elapsed_time = (pygame.time.get_ticks() - start_ticks / 1000)
+		#
+		# timer = game_font.render(str(int(time - elapsed_time)), True,
+		# 					 (255, 0, 0))
+		# screen.blit(timer, (10, 10))
+		#
+		# if time - elapsed_time <= 0:
+		# 	print("타임아웃")
+
 		pygame.display.update()
 
+def main_menu():
+    while True:
+        screen.blit(start, (0, 0))
+
+        # MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        PLAY_BUTTON = (pygame.image.load("img/btn_start.png"))
+
+        for button in [PLAY_BUTTON]:
+            button.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                # sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BUTTON.checkForInput():
+                    startGame()
+                    # sys.exit()
+
+    pygame.display.update()
+
+# def score(self):
+# 	self.score = 0
+#
+#
+# def update(self):
+# 	# Game Loop - Update
+# 	...
+#
+# 	# If player reached top 1/4 of screen
+# 	if self.player.rect.top <= size / 4:
+# 		self.player.pos.y += abs(self.player.vel.y)
+# 		for plat in self.platforms:
+# 			plat.rect.y += abs(self.player.vel.y)
+# 			if plat.rect.top >= size:
+# 				plat.kill()
+# 				self.score += 10
+#
+# def draw_text(self, text, size, color, x, y):
+#         font = pygame.font.Font(self.font_name, size)
+#         text_surface = font.render(text, True, color)
+#         text_rect = text_surface.get_rect()
+#         text_rect.midtop = (x, y)
+#         self.screen.blit(text_surface, text_rect)
+#
+# class Game:
+#     def __init__(self):
+#         # initialize game window, etc
+#         ...
+#         self.font_name = pygame.font.match_font(FONT_NAME)
+#
+#
+# def draw(self):
+# 	# Game Loop - Draw
+# 	self.all_sprites.draw(self.screen)
+# 	self.draw_text(str(self.score), 22, size / 2, 15)  ###
+#
+# 	# *after* drawing everything, flip the display
+# 	pygame.display.flip()
 
 
 #게임 시작
