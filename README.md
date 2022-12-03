@@ -23,8 +23,8 @@
  - threading
  - os
  - DB
- - tkinter
- 이름 입력을 받은뒤 랭킹에 기록
+ - tkinter<br>
+ 데이터 : 이름 입력을 받은뒤 랭킹에 기록
  
  #
 
