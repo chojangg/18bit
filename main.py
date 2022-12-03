@@ -4,20 +4,22 @@
 # 캐릭터를 방향키로 좌우 이동
 # 피구공을 피하면 점수가 올라감
 # 피구공에 맞게되면 게임이 끝남
-
 import pygame   # 1. pygame 선언
 import time
 import sys
 import random
 import threading
 import os
+from db import DBHelper
+
+db = DBHelper()
+db.insert()
 
 pygame.init()  # 2. pygame 초기화
 # color
 White = (255, 255, 255)
 Black = (0, 0, 0)
 Red = (255, 0, 0)
-
 # 파일경로
 now_path = os.path.dirname(__file__)
 image_file_path = os.path.join(now_path, "img")
@@ -30,21 +32,16 @@ background = pygame.image.load(os.path.join(image_file_path, "background.png"))
 def display(color_=False):
     if color_: Game_screen.fill(color_)  # color 인수로 들어오면 color색으로 화면 덮기
     pygame.display.update()  # 창 띄우기
-
-
 def Open_screen(img, caption, size=[640,640]):  # 창 만들기(배경색,캡션이름,해상도)
     global Game_screen
     Game_screen = pygame.display.set_mode(size)
     pygame.display.set_caption(caption)
     Game_screen.blit(img, (0, 0))
-
 def Open_text(Font_size, string, Font, color, xy):  # 텍스트 띄우기(글씨크기,문구,폰트,색,좌표)
     text_box = pygame.font.SysFont(Font, Font_size)
     text = text_box.render(string, True, color)
     Game_screen.blit(text, xy)
     display()
-
-
 def KEY_CHECK():
     for event in pygame.event.get():  # 나가기 누를때 종료
         if event.type == pygame.QUIT:
@@ -55,39 +52,30 @@ def KEY_CHECK():
         pygame.quit()
         sys.exit()
     return key_pressed  # 누른 키 리스트 반환
-
-
 def Game_over():
     Open_text(72, "Game Over!", "Bold", Red, (180, 180))
     time.sleep(3)
     pygame.quit()
     sys.exit()
-
-
 class character:
     def __init__(self, address):
         self.image = pygame.image.load(address)
         self.pos_x = 260  # 초기 위치
         self.speed = 10  # 속력
         self.score = 0
-
     def pos(self):  # 좌표 반환
         return (self.pos_x, 500)
-
     def pos_loop(self):  # 캐릭터 화면 벗어나면 반대편에서 나오기
         if self.pos_x < -60:
             self.pos_x = 840 + self.pos_x
         elif self.pos_x > 780:
             self.pos_x = self.pos_x - 840
-
     def move(self, key_pressed):  # 방향키 확인 후 캐릭터 위치 조정
         if key_pressed[pygame.K_LEFT]:
             self.pos_x = self.pos_x - self.speed
         elif key_pressed[pygame.K_RIGHT]:
             self.pos_x = self.pos_x + self.speed
         self.pos_loop()
-
-
 class ball:
     def __init__(self, item_number):
         self.item_number = item_number
@@ -96,22 +84,16 @@ class ball:
         self.pos_x = random.randrange(0, 8) * 100 + 25  # 공 x좌표 랜덤설정(간격100)
         self.pos_y = 10
         self.initial_speed = random.randrange(2, 6)
-
     def speed(self):
         self.total_speed = self.initial_speed + balls_change_speed
         if self.total_speed > 50:
             self.total_speed = 50
         return self.total_speed
-
     def pos(self):
         return [self.pos_x, self.pos_y]
-
-
 def ball_create():
     balls.append(ball(0))  # 공 만들어서 리스트에 추가
     threading.Timer(1, ball_create).start()  # 1초마다 반복
-
-
 def Colide_Check(character_pos_x, index):  # 충돌하면 game_over
     global balls
     global balls_change_speed
@@ -130,18 +112,13 @@ def Colide_Check(character_pos_x, index):  # 충돌하면 game_over
             else:
                 Character.score = Character.score + len(balls) - 1
                 balls = []
-
-
 class heart:
     def __init__(self, index):
         self.pos_x = 40 * index + 15
         self.pos_y = 10
         self.image = pygame.image.load(os.path.join(image_file_path, "heart1.png"))
-
     def pos(self):
         return [self.pos_x, self.pos_y]
-
-
 def falling_ball(index):
     if index == len(balls): return 0  # 리스트 아웃 오브 레인지 방지
     Game_screen.blit(balls[index].image, balls[index].pos())  # 화면에 공 나타내기
@@ -150,8 +127,6 @@ def falling_ball(index):
     # 재귀함수 호출(바로 다음 인덱스로 가기 때문에 리스트 끝에 도달 후 밑에 코드 실행)
     Colide_Check(Character.pos_x, index)
     # 마지막 인덱스부터 먼저 실행 하고 첫 번째 인덱스가 마지막으로 실행
-
-
 def main():
     # 초기 화면
     Open_screen(startbackground, "18bit")
@@ -169,7 +144,6 @@ def main():
             display(White)
             pygame.mixer.music.load(os.path.join(bgm_file_path, "backgroundmusic.mp3"))
             pygame.mixer.music.play(-1)
-
     # 게임 중
     global Character
     Character = character(os.path.join(image_file_path, "character.png"))  # 캐릭터 생성
@@ -183,18 +157,15 @@ def main():
     falling_item = False
     clock = pygame.time.Clock()
     ball_create()
-
     while Run:
         pressed = KEY_CHECK()  # 키 누르는지 확인
         Character.move(pressed)  # 캐릭터 이동
         Game_screen.blit(Character.image, Character.pos())
         for x in range(len(hearts)):
             Game_screen.blit(hearts[x].image, hearts[x].pos())  # 하트 표시
-
         falling_ball(0)  # 떨어지는 공 좌표 조정 및 충돌 확인
         balls.sort(key=lambda ball: ball.pos_y, reverse=True)
         # 바닥에 가까운 순으로 공 정렬
-
         while len(balls) and balls[0].pos_y > 560:  # 바닥 도달한 공 있으면
             if balls[0].item_number == 0:
                 Character.score = Character.score + 1  # 점수 추가
