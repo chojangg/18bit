@@ -11,9 +11,11 @@ import random
 import threading
 import os
 from db import DBHelper
+from tkinter import *
+from tkinter.simpledialog import *
 
 db = DBHelper()
-db.insert()
+
 
 pygame.init()  # 2. pygame 초기화
 # color
@@ -52,11 +54,26 @@ def KEY_CHECK():
         pygame.quit()
         sys.exit()
     return key_pressed  # 누른 키 리스트 반환
+
+
 def Game_over():
     Open_text(72, "Game Over!", "Bold", Red, (180, 180))
+    pygame = Tk();
+    pygame.geometry("300x200")
+    list_listbox = Listbox(pygame)
+    Name = askstring("18bit 랭킹", "이름을 입력하세요")
+    db.insert(Name, Character.score)
+    saying_tb = db.select()
+    for i in range(len(saying_tb)):
+        list_listbox.insert(i, f'{saying_tb[i][0]}. {saying_tb[i][1]}')
+    list_listbox.pack()
+    pygame.mainloop()
     time.sleep(3)
     pygame.quit()
     sys.exit()
+
+
+
 class character:
     def __init__(self, address):
         self.image = pygame.image.load(address)

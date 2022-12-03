@@ -16,15 +16,20 @@ class DBHelper:
         cur.close()
         conn.close()
 
-    def insert(self):
+    def insert(self, Name, Score):
         conn = pd.connect(host='localhost', user='root', passwd='mirim', database='bit_db', charset='utf8')
         cur = conn.cursor()
-        sql = "INSERT INTO bit VALUES('이예진', 100);"
 
-        cur.execute(sql)
+        cur.execute("INSERT INTO bit (Name, Score)VALUES( %s, %s)", (Name, Score))
         conn.commit()
 
     def delete(self):
         sql = "DELETE FROM bit WHERE 이름 = '이예진';"
         self.cur.execute(sql)
         self.bit_db.commit()
+
+    def select(self):
+        conn = pd.connect(host='localhost', user='root', passwd='mirim',database='bit_db', charset='utf8')
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM bit")
+        return cur.fetchall()
