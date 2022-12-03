@@ -26,11 +26,9 @@ Red = (255, 0, 0)
 now_path = os.path.dirname(__file__)
 image_file_path = os.path.join(now_path, "img")
 bgm_file_path = os.path.join(now_path, "bgm")
-
 # 배경 이미지
 startbackground = pygame.image.load(os.path.join(image_file_path, "start_img.jpg"))
 background = pygame.image.load(os.path.join(image_file_path, "background.png"))
-
 def display(color_=False):
     if color_: Game_screen.fill(color_)  # color 인수로 들어오면 color색으로 화면 덮기
     pygame.display.update()  # 창 띄우기
@@ -148,7 +146,6 @@ def main():
     # 초기 화면
     Open_screen(startbackground, "18bit")
     Open_text(25, "Press spacebar to start!", "Monospace", White, (130, 300))
-
     # 스페이스바 대기
     Run = False
     while not Run:
@@ -156,7 +153,7 @@ def main():
         if pressed[pygame.K_SPACE]:  # 스페이스바 눌렀을 때
             Run = True
             display(White)  # 하얀 바탕으로 덮기
-            Open_text(72, "Start!", "Bold", Red, (255, 255))  # 1초 동안 start! 문구 나타내기
+            Open_text(72, "Start!", "Bold", Black, (255, 255))  # 1초 동안 start! 문구 나타내기
             time.sleep(1)
             display(White)
             pygame.mixer.music.load(os.path.join(bgm_file_path, "backgroundmusic.mp3"))
@@ -191,10 +188,7 @@ def main():
             balls.remove(balls[0])  # 전체 공 리스트에서 빼고
             if Character.score % 10 == 0 and Character.score:  # 10점마다 속도업
                 balls_change_speed = balls_change_speed + 1
-
-        Open_text(48, "Points : {}".format(Character.score), "Bold", Black, (280, 0))
+        Open_text(48, "SCORE : {}".format(Character.score), "Bold", Black, (280, 0))
         Open_screen(background,"")
         clock.tick(30)
-
-
 main()

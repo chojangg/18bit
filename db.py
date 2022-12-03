@@ -1,5 +1,4 @@
 import pymysql as pd
-
 class DBHelper:
     def __init__(self):
         conn = pd.connect(host='localhost', user='root', passwd='mirim', charset='utf8') # mysql 접속
