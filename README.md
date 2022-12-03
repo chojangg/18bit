@@ -21,4 +21,5 @@
 
 ## 게임 실행 화면
 ![image](https://user-images.githubusercontent.com/83991079/205447647-20a6896c-7a93-497e-a1c1-8c79d4d6eb4c.png)
+
 <img src="https://user-images.githubusercontent.com/83991079/205447124-497810fa-16c8-4723-b7f1-fe59bda3b4c3.mp4">
