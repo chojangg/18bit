@@ -5,6 +5,7 @@
 <img src="https://img.shields.io/badge/PyCharm-000000?style=flat-square&logo=PyCharm&logoColor=white"/>
 
 <br>
+
 ## 게임방법
 1. 스페이스바를 눌러 게임을 시작
 2. 게임이 시작되고 목숨 3개가 주어진다
