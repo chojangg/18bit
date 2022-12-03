@@ -11,6 +11,7 @@ import sys
 import random
 import threading
 import os
+import cv2
 
 pygame.init()  # 2. pygame 초기화
 # color
@@ -23,18 +24,19 @@ now_path = os.path.dirname(__file__)
 image_file_path = os.path.join(now_path, "img")
 bgm_file_path = os.path.join(now_path, "bgm")
 
+# 배경 이미지
+startbackground = pygame.image.load(os.path.join(image_file_path, "start_img.jpg"))
 
 def display(color_=False):
     if color_: Game_screen.fill(color_)  # color 인수로 들어오면 color색으로 화면 덮기
     pygame.display.update()  # 창 띄우기
 
 
-def Open_screen(color, caption, size=[640,640]):  # 창 만들기(배경색,캡션이름,해상도)
+def Open_screen(img, caption, size=[640,640]):  # 창 만들기(배경색,캡션이름,해상도)
     global Game_screen
     Game_screen = pygame.display.set_mode(size)
     pygame.display.set_caption(caption)
-    display(color)
-
+    Game_screen.blit(img, (0, 0))
 
 def Open_text(Font_size, string, Font, color, xy):  # 텍스트 띄우기(글씨크기,문구,폰트,색,좌표)
     text_box = pygame.font.SysFont(Font, Font_size)
@@ -152,8 +154,8 @@ def falling_ball(index):
 
 def main():
     # 초기 화면
-    Open_screen(White, "18bit")
-    Open_text(20, "Push an spacebar to start!", "Monospace", Red, (170, 300))
+    Open_screen(startbackground, "18bit")
+    Open_text(25, "Push an spacebar to start!", "Monospace", White, (130, 300))
 
     # 스페이스바 대기
     Run = False
