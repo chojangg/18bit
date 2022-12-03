@@ -4,3 +4,6 @@
 - 캐릭터를 방향키로 좌우 이동
 - 피구공을 피하면 점수가 올라감
 - 피구공에 맞게되면 게임이 끝남
+
+## 게임 실행 화면
+<img src="https://user-images.githubusercontent.com/83991079/205447124-497810fa-16c8-4723-b7f1-fe59bda3b4c3.mp4">
