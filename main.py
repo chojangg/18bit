@@ -11,7 +11,6 @@ import sys
 import random
 import threading
 import os
-import cv2
 
 pygame.init()  # 2. pygame 초기화
 # color
@@ -26,6 +25,7 @@ bgm_file_path = os.path.join(now_path, "bgm")
 
 # 배경 이미지
 startbackground = pygame.image.load(os.path.join(image_file_path, "start_img.jpg"))
+background = pygame.image.load(os.path.join(image_file_path, "background.png"))
 
 def display(color_=False):
     if color_: Game_screen.fill(color_)  # color 인수로 들어오면 color색으로 화면 덮기
@@ -155,7 +155,7 @@ def falling_ball(index):
 def main():
     # 초기 화면
     Open_screen(startbackground, "18bit")
-    Open_text(25, "Push an spacebar to start!", "Monospace", White, (130, 300))
+    Open_text(25, "Press spacebar to start!", "Monospace", White, (130, 300))
 
     # 스페이스바 대기
     Run = False
@@ -205,7 +205,7 @@ def main():
                 balls_change_speed = balls_change_speed + 1
 
         Open_text(48, "Points : {}".format(Character.score), "Bold", Black, (280, 0))
-        Game_screen.fill(White)
+        Open_screen(background,"")
         clock.tick(30)
 
 
