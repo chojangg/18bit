@@ -1,6 +1,6 @@
 # 18bit
-하늘에서 떨어지는 피구공을 피하는 게임
-사용한 언어 & 개발도구
+하늘에서 떨어지는 피구공을 피하는 게임 <br>
+### 사용한 언어 & 개발도구<br>
 <img src="https://img.shields.io/badge/python-3776AB?style=flat-square&logo=python&logoColor=white"/>
 <img src="https://img.shields.io/badge/PyCharm-000000?style=flat-square&logo=PyCharm&logoColor=white"/>
 
