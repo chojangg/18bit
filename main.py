@@ -168,6 +168,7 @@ def main():
             time.sleep(1)
             display(White)
             pygame.mixer.music.load(os.path.join(bgm_file_path, "backgroundmusic.mp3"))
+            pygame.mixer.music.set_volume(0.3)
             pygame.mixer.music.play(-1)
 
     # 게임 중
