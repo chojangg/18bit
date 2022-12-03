@@ -21,7 +21,7 @@ Red = (255, 0, 0)
 # 파일경로
 now_path = os.path.dirname(__file__)
 image_file_path = os.path.join(now_path, "img")
-# bgm_file_path = os.path.join(now_path, "bgm")
+bgm_file_path = os.path.join(now_path, "bgm")
 
 
 def display(color_=False):
@@ -117,8 +117,8 @@ def Colide_Check(character_pos_x, index):  # 충돌하면 game_over
     if 480 < balls[index].pos_y < 560:
         if balls[index].pos_x - 91 < character_pos_x < balls[index].pos_x + 50:  # 충돌인경우
             if balls[index].item_number == 0:  # 공에 부딪히면
-                # bgm2 = pygame.mixer.Sound(os.path.join(bgm_file_path, "삐.wav"))  # 효과음
-                # bgm2.play()
+                bgm2 = pygame.mixer.Sound(os.path.join(bgm_file_path, "crash.wav"))  # 효과음
+                bgm2.play()
                 if len(hearts) > 1:
                     del hearts[len(hearts) - 1]
                     time.sleep(0.5)
@@ -165,8 +165,8 @@ def main():
             Open_text(72, "Start!", "Bold", Red, (255, 255))  # 1초 동안 start! 문구 나타내기
             time.sleep(1)
             display(White)
-            # pygame.mixer.music.load(os.path.join(bgm_file_path, 'bgm1.mp3'))
-            # pygame.mixer.music.play(-1)
+            pygame.mixer.music.load(os.path.join(bgm_file_path, "backgroundmusic.mp3"))
+            pygame.mixer.music.play(-1)
 
     # 게임 중
     global Character
